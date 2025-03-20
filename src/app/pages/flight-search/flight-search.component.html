@@ -1,0 +1,130 @@
+<div class="flight-search-container">
+  <div class="search-section">
+    <h1>Search Flights</h1>
+    <p class="subtitle">Find the best flights for your next trip</p>
+
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="origin">From</label>
+          <input 
+            id="origin"
+            type="text"
+            formControlName="origin"
+            class="form-control"
+            placeholder="City or airport code">
+          <div class="error-message" *ngIf="searchForm.get('origin')?.touched && searchForm.get('origin')?.errors">
+            {{ getErrorMessage('origin') }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="destination">To</label>
+          <input 
+            id="destination"
+            type="text"
+            formControlName="destination"
+            class="form-control"
+            placeholder="City or airport code">
+          <div class="error-message" *ngIf="searchForm.get('destination')?.touched && searchForm.get('destination')?.errors">
+            {{ getErrorMessage('destination') }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="departureDate">Departure Date</label>
+          <input 
+            id="departureDate"
+            type="date"
+            formControlName="departureDate"
+            class="form-control"
+            [min]="minDate">
+          <div class="error-message" *ngIf="searchForm.get('departureDate')?.touched && searchForm.get('departureDate')?.errors">
+            {{ getErrorMessage('departureDate') }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="returnDate">Return Date (Optional)</label>
+          <input 
+            id="returnDate"
+            type="date"
+            formControlName="returnDate"
+            class="form-control"
+            [min]="searchForm.get('departureDate')?.value || minDate">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="passengers">Passengers</label>
+          <input 
+            id="passengers"
+            type="number"
+            formControlName="passengers"
+            class="form-control"
+            min="1"
+            max="9">
+        </div>
+
+        <div class="form-group">
+          <label for="class">Class</label>
+          <select 
+            id="class"
+            formControlName="class"
+            class="form-control">
+            <option value="economy">Economy</option>
+            <option value="premium">Premium Economy</option>
+            <option value="business">Business</option>
+            <option value="first">First Class</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="search-button" [disabled]="!searchForm.valid || loading">
+        {{ loading ? 'Searching...' : 'Search Flights' }}
+      </button>
+    </form>
+  </div>
+
+  <div class="results-section" *ngIf="loading || searchResults.length > 0">
+    <div class="loading-spinner" *ngIf="loading">
+      <div class="spinner"></div>
+      <p>Searching for flights...</p>
+    </div>
+
+    <div class="no-results" *ngIf="!loading && noResults">
+      <p>No flights found for your search criteria.</p>
+    </div>
+
+    <div class="flight-results" *ngIf="!loading && !noResults">
+      <div class="flight-card" *ngFor="let flight of searchResults">
+        <div class="flight-info">
+          <div class="airline">
+            <h3>{{ flight.airline }}</h3>
+            <span class="flight-number">Flight {{ flight.flightNumber }}</span>
+          </div>
+          <div class="times">
+            <div class="departure">
+              <span class="time">{{ flight.departure }}</span>
+              <span class="label">Departure</span>
+            </div>
+            <div class="arrival">
+              <span class="time">{{ flight.arrival }}</span>
+              <span class="label">Arrival</span>
+            </div>
+          </div>
+          <div class="stops" *ngIf="flight.stops > 0">
+            {{ flight.stops }} stop{{ flight.stops > 1 ? 's' : '' }}
+          </div>
+        </div>
+        <div class="price">
+          <span class="amount">${{ flight.price }}</span>
+          <button class="select-button">Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

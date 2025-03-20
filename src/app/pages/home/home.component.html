@@ -1,0 +1,31 @@
+<div class="home-container">
+  <div class="hero-section">
+    <h1>{{ title }}</h1>
+    <p class="subtitle">Track your travel plans and manage your trips</p>
+    <div class="hero-buttons">
+      <a routerLink="/trips" class="cta-button">
+        View Trips
+      </a>
+      <button class="cta-button" (click)="onOpenTripModal()">
+        Create New Trip
+      </button>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <div class="feature-card">
+      <h3>Plan Your Trips</h3>
+      <p>Create and manage your travel itineraries</p>
+    </div>
+    <div class="feature-card">
+      <h3>Price Alerts</h3>
+      <p>Get notified when prices change</p>
+    </div>
+  </div>
+
+  <app-trip-form-modal
+    *ngIf="showTripModal"
+    (close)="onCloseTripModal()"
+    (submit)="onSubmitTrip($event)">
+  </app-trip-form-modal>
+</div> 

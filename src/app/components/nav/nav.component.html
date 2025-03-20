@@ -1,0 +1,31 @@
+<nav class="nav-container">
+  <div class="nav-content">
+    <a routerLink="/" class="logo">
+      Travel Tracker
+    </a>
+
+    <button class="menu-toggle" [class.open]="isMenuOpen" (click)="toggleMenu()" aria-label="Toggle menu">
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+    </button>
+
+    <div class="nav-links" [class.open]="isMenuOpen">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        Home
+      </a>
+      <a routerLink="/trips" routerLinkActive="active">
+        Trips
+      </a>
+      <a routerLink="/flights" routerLinkActive="active">
+        Flights
+      </a>
+      <a routerLink="/accommodations" routerLinkActive="active">
+        Accommodations
+      </a>
+      <a routerLink="/price-alerts" routerLinkActive="active">
+        Price Alerts
+      </a>
+    </div>
+  </div>
+</nav> 

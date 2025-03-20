@@ -1,0 +1,79 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Create New Trip</h2>
+      <button class="close-button" (click)="onClose()">&times;</button>
+    </div>
+
+    <form [formGroup]="tripForm" (ngSubmit)="onSubmit()" class="trip-form">
+      <div class="form-group">
+        <label for="title">Trip Title</label>
+        <input 
+          id="title"
+          type="text"
+          formControlName="title"
+          class="form-control"
+          placeholder="Enter trip title">
+        <div class="error-message" *ngIf="tripForm.get('title')?.touched && tripForm.get('title')?.errors">
+          {{ getErrorMessage('title') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea 
+          id="description"
+          formControlName="description"
+          class="form-control"
+          placeholder="Enter trip description"
+          rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="destination">Destination</label>
+        <input 
+          id="destination"
+          type="text"
+          formControlName="destination"
+          class="form-control"
+          placeholder="Enter destination">
+        <div class="error-message" *ngIf="tripForm.get('destination')?.touched && tripForm.get('destination')?.errors">
+          {{ getErrorMessage('destination') }}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate">Start Date</label>
+          <input 
+            id="startDate"
+            type="date"
+            formControlName="startDate"
+            class="form-control"
+            [min]="minDate">
+          <div class="error-message" *ngIf="tripForm.get('startDate')?.touched && tripForm.get('startDate')?.errors">
+            {{ getErrorMessage('startDate') }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="endDate">End Date</label>
+          <input 
+            id="endDate"
+            type="date"
+            formControlName="endDate"
+            class="form-control"
+            [min]="tripForm.get('startDate')?.value || minDate">
+          <div class="error-message" *ngIf="tripForm.get('endDate')?.touched && tripForm.get('endDate')?.errors">
+            {{ getErrorMessage('endDate') }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-button" (click)="onClose()">Cancel</button>
+        <button type="submit" class="submit-button" [disabled]="!tripForm.valid">Create Trip</button>
+      </div>
+    </form>
+  </div>
+</div> 
