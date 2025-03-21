@@ -1,53 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NbCardModule, NbButtonModule, NbIconModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { TripFormModalComponent } from '../../components/trip-form-modal/trip-form-modal.component';
 
 @Component({
   selector: 'app-trips',
   standalone: true,
-  imports: [CommonModule, RouterModule],
-  template: `
-    <div class="trips-container">
-      <h1>My Trips</h1>
-      <p>Plan and manage your travel itineraries</p>
-      <a routerLink="/trips/new" class="create-button">
-        Create New Trip
-      </a>
-    </div>
-  `,
-  styles: [`
-    .trips-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      text-align: center;
-    }
-
-    h1 {
-      color: #333;
-      margin-bottom: 20px;
-      font-size: 2rem;
-    }
-
-    p {
-      color: #666;
-      margin-bottom: 30px;
-    }
-
-    .create-button {
-      display: inline-block;
-      padding: 12px 24px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 500;
-      transition: background-color 0.2s;
-    }
-
-    .create-button:hover {
-      background-color: #0056b3;
-    }
-  `]
+  imports: [
+    CommonModule,
+    NbCardModule,
+    NbButtonModule,
+    NbIconModule,
+    NbEvaIconsModule,
+    TripFormModalComponent
+  ],
+  templateUrl: './trips.component.html',
+  styleUrls: ['./trips.component.scss']
 })
-export class TripsComponent {} 
+export class TripsComponent implements OnInit {
+  trips: any[] = [];
+  showTripModal = false;
+  selectedTrip: any = null;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    // TODO: Load trips from service
+    this.trips = [];
+  }
+
+  onOpenTripModal(): void {
+    this.selectedTrip = null;
+    this.showTripModal = true;
+  }
+
+  onCloseTripModal(): void {
+    this.showTripModal = false;
+    this.selectedTrip = null;
+  }
+
+  onSubmitTrip(tripData: any): void {
+    // TODO: Save trip to service
+    console.log('Trip submitted:', tripData);
+    this.onCloseTripModal();
+  }
+
+  onEditTrip(trip: any): void {
+    this.selectedTrip = trip;
+    this.showTripModal = true;
+  }
+
+  onDeleteTrip(trip: any): void {
+    // TODO: Delete trip from service
+    console.log('Delete trip:', trip);
+  }
+} 

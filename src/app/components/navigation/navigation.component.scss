@@ -1,6 +1,10 @@
 :host {
   display: block;
-  min-height: 100vh;
+  height: 100vh;
+}
+
+nb-layout {
+  height: 100vh;
 }
 
 .header-container {
@@ -95,4 +99,4 @@
     width: 100%;
     min-height: auto;
   }
-}
+} 

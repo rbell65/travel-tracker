@@ -1,0 +1,14 @@
+<nb-layout>
+  <nb-layout-header>
+    <div class="header-container">
+    </div>
+  </nb-layout-header>
+
+  <nb-layout-column class="menu-column">
+    <nb-menu [items]="menuItems" class="menu-container"></nb-menu>
+  </nb-layout-column>
+
+  <nb-layout-column class="content-column">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout> 

@@ -1,31 +1,59 @@
 <div class="home-container">
-  <div class="hero-section">
-    <h1>{{ title }}</h1>
-    <p class="subtitle">Track your travel plans and manage your trips</p>
+  <section class="hero-section">
+    <h1>Plan Your Perfect Trip</h1>
+    <p>Track your travel plans, find the best deals, and get AI-powered travel recommendations all in one place.</p>
     <div class="hero-buttons">
-      <a routerLink="/trips" class="cta-button">
-        View Trips
-      </a>
-      <button class="cta-button" (click)="onOpenTripModal()">
+      <button class="cta-button primary" (click)="onOpenTripModal()">
         Create New Trip
       </button>
+      <button class="cta-button secondary" routerLink="/trips">
+        View My Trips
+      </button>
     </div>
-  </div>
+  </section>
 
-  <div class="features-section">
+  <section class="features-section">
     <div class="feature-card">
-      <h3>Plan Your Trips</h3>
-      <p>Create and manage your travel itineraries</p>
+      <h3>Flight Search</h3>
+      <p>Find the best flight deals with our comprehensive search engine and price tracking.</p>
     </div>
     <div class="feature-card">
-      <h3>Price Alerts</h3>
-      <p>Get notified when prices change</p>
+      <h3>Accommodations</h3>
+      <p>Discover perfect places to stay with detailed reviews and price comparisons.</p>
     </div>
-  </div>
+    <div class="feature-card">
+      <h3>Excursions</h3>
+      <p>Explore local activities and attractions with curated recommendations.</p>
+    </div>
+  </section>
 
-  <app-trip-form-modal
-    *ngIf="showTripModal"
-    (close)="onCloseTripModal()"
-    (submit)="onSubmitTrip($event)">
-  </app-trip-form-modal>
-</div> 
+  <section class="recent-trips-section">
+    <h2>Recent Trips</h2>
+    <div class="trips-grid">
+      <div class="trip-card" *ngFor="let trip of recentTrips">
+        <img [src]="trip.image" [alt]="trip.title" class="trip-image">
+        <div class="trip-content">
+          <h3>{{ trip.title }}</h3>
+          <div class="trip-details">
+            <p>{{ trip.destination }} • {{ trip.startDate | date }} - {{ trip.endDate | date }}</p>
+          </div>
+          <div class="trip-actions">
+            <button class="view-button" [routerLink]="['/trips', trip.id]">
+              View
+            </button>
+            <button class="edit-button" (click)="onEditTrip(trip)">
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!--app-trip-form-modal
+  *ngIf="showTripModal"
+  (close)="onCloseTripModal()"
+  (submit)="onSubmitTrip($event)">
+</app-trip-form-modal-->

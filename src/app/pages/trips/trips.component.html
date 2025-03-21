@@ -1,0 +1,55 @@
+<div class="trips-container">
+  <div class="header">
+    <h1>My Trips</h1>
+    <button nbButton status="primary" (click)="onOpenTripModal()">
+      Create New Trip
+    </button>
+  </div>
+
+  <div class="trips-grid">
+    <nb-card *ngFor="let trip of trips" class="trip-card">
+      <nb-card-header>
+        <div class="trip-header">
+          <h3>{{ trip.title }}</h3>
+          <div class="trip-actions">
+            <button nbButton ghost status="primary" (click)="onEditTrip(trip)">
+              <nb-icon icon="edit-outline"></nb-icon>
+            </button>
+            <button nbButton ghost status="danger" (click)="onDeleteTrip(trip)">
+              <nb-icon icon="trash-outline"></nb-icon>
+            </button>
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <p class="trip-description">{{ trip.description }}</p>
+        <div class="trip-details">
+          <div class="detail-item">
+            <nb-icon icon="map-outline"></nb-icon>
+            <span>{{ trip.destination }}</span>
+          </div>
+          <div class="detail-item">
+            <nb-icon icon="calendar-outline"></nb-icon>
+            <span>{{ trip.startDate | date }} - {{ trip.endDate | date }}</span>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="no-trips" *ngIf="trips.length === 0">
+    <nb-icon icon="map-outline" class="no-trips-icon"></nb-icon>
+    <h2>No Trips Yet</h2>
+    <p>Start planning your next adventure by creating a new trip!</p>
+    <button nbButton status="primary" (click)="onOpenTripModal()">
+      Create Your First Trip
+    </button>
+  </div>
+
+  <app-trip-form-modal
+    *ngIf="showTripModal"
+    (close)="onCloseTripModal()"
+    (submit)="onSubmitTrip($event)"
+    >
+  </app-trip-form-modal>
+</div> 

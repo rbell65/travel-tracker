@@ -1,0 +1,50 @@
+<div class="ai-assistant-container">
+  <nb-card class="chat-card">
+    <nb-card-header>
+      <div class="header-content">
+        <nb-icon icon="robot-outline" class="header-icon"></nb-icon>
+        <h2>AI Travel Assistant</h2>
+      </div>
+    </nb-card-header>
+    
+    <nb-card-body>
+      <div class="chat-messages" #scrollContainer>
+        <div *ngFor="let message of messages" 
+             [class]="'message ' + (message.isUser ? 'user-message' : 'assistant-message')">
+          <div class="message-content">
+            <nb-icon [icon]="message.isUser ? 'person-outline' : 'robot-outline'" 
+                    class="message-icon">
+            </nb-icon>
+            <div class="message-text">{{ message.content }}</div>
+          </div>
+          <div class="message-timestamp">
+            {{ message.timestamp | date:'shortTime' }}
+          </div>
+        </div>
+        <div *ngIf="isLoading" class="message assistant-message">
+          <div class="message-content">
+            <nb-icon icon="robot-outline" class="message-icon"></nb-icon>
+            <div class="message-text">
+              <nb-spinner size="tiny"></nb-spinner>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+
+    <nb-card-footer>
+      <div class="input-container">
+        <nb-input
+          [(ngModel)]="newMessage"
+          placeholder="Ask me anything about travel..."
+          fullWidth>
+        </nb-input>
+        <button nbButton
+                status="primary"
+                (click)="sendMessage()"
+                [disabled]="!newMessage.trim() || isLoading">
+        </button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</div> 

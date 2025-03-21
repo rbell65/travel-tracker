@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NbLayoutModule } from '@nebular/theme';
-import { NbMenuModule } from '@nebular/theme';
-import { NbIconModule } from '@nebular/theme';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { NbMenuModule, NbIconModule, NbLayoutModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-navigation',
   standalone: true,
   imports: [
-    RouterOutlet,
-    NbLayoutModule,
+    CommonModule,
+    RouterModule,
     NbMenuModule,
     NbIconModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
+    NbLayoutModule
   ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.scss']
 })
-export class AppComponent {
+export class NavigationComponent {
   menuItems = [
     {
       title: 'Home',
@@ -26,7 +26,7 @@ export class AppComponent {
       link: '/'
     },
     {
-      title: 'Trips',
+      title: 'My Trips',
       icon: 'map-outline',
       link: '/trips'
     },
@@ -46,9 +46,14 @@ export class AppComponent {
       link: '/excursions'
     },
     {
+      title: 'Price Alerts',
+      icon: 'bell-outline',
+      link: '/price-alerts'
+    },
+    {
       title: 'AI Assistant',
       icon: 'robot-outline',
       link: '/ai-assistant'
     }
   ];
-}
+} 
